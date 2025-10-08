@@ -409,4 +409,4 @@ def update(clickData):
 if __name__ == "__main__":
     app.run_server(debug=False, host="0.0.0.0", port=8050)
 
-
+server = app.server
