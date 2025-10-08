@@ -323,7 +323,7 @@ def build_figure():
         # Replace with your PNG path
         # ==========================
         dict(
-            source="assets/what_how_who.png",
+            source="assets/WhatHowWho.png",
             xref="paper", yref="paper",
             x=0.5, y=0.5,
             sizex=0.35, sizey=0.35,
@@ -380,25 +380,36 @@ def update(clickData):
         else:
             active_children.add(clicked)
 
-    # --- CASE 3: Grandchild clicked ---
+   # --- CASE 3: Grandchild clicked ---
     else:
         parent_child = None
+        parent_core = None
+    
+        # find which child this grandchild belongs to
         for child, grandkids in grandchildren_map.items():
             if clicked in grandkids:
                 parent_child = child
+                # find which core that child belongs to
+                for core, children in children_map.items():
+                    if parent_child in children:
+                        parent_core = core
+                        break
                 break
-
-        if parent_child:
-            # ensure its parent child is active
+    
+        if parent_child and parent_core:
+            # --- keep the core always active ---
+            active_cores.add(parent_core)
+    
+            # --- activate only the corresponding child ---
+            active_children.clear()
             active_children.add(parent_child)
-            # toggle this grandchild only
-            if clicked in active_grandchildren:
-                active_grandchildren.remove(clicked)
-            else:
-                # deactivate other grandchildren under the same parent
-                for gc in grandchildren_map[parent_child]:
-                    active_grandchildren.discard(gc)
-                active_grandchildren.add(clicked)
+    
+            # --- deactivate all grandchildren first ---
+            active_grandchildren.clear()
+    
+            # --- activate only the clicked grandchild ---
+            active_grandchildren.add(clicked)
+
 
     return build_figure()
 
