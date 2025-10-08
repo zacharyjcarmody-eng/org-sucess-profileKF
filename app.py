@@ -406,5 +406,7 @@ def update(clickData):
 # ==========================================================
 # Run inline in Jupyter
 # ==========================================================
-app.run(mode="inline", port=random.randint(8050, 8099))
+if __name__ == "__main__":
+    app.run_server(debug=False, host="0.0.0.0", port=8050)
+
 
