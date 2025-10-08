@@ -326,7 +326,7 @@ def build_figure():
             source="assets/WhatHowWho.png",
             xref="paper", yref="paper",
             x=0.5, y=0.5,
-            sizex=0.35, sizey=0.35,
+            sizex=0.42, sizey=0.42,
             xanchor="center", yanchor="middle",
             layer="above"
         )
